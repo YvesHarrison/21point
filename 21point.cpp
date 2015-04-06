@@ -13,39 +13,45 @@ void judage(float value1,float value2,int card1,int card2);
 int main(){		
 	int card[]={1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13};
 	int m,n,c,d,e,f,card1,card2;char choice,decide;float value1,value2;
-	while(decide=='y'){
 	
-	srand(time(NULL));	
-	m=rand()*52/(RAND_MAX+1);
 	do{
-		n=rand()*52/(RAND_MAX+1);
-	}while (m==n);
+	srand(time(NULL));	
+	int card[]={1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13};
+	cout<<"player turn"<<endl;
 	
 	value1=0;
 	value2=0;
 	
-	cout<<"palyer turn"<<endl;
-	
+	m=rand()*52/(RAND_MAX+1);
 	value1+=getcard(card,m);
 	showcard(card,m);
+	card[m] =-1;
+	
+	n=rand()*52/(RAND_MAX+1);
+	while (card[n]==-1){
+		n=rand()*52/(RAND_MAX+1);
+	}
 	value1+=getcard(card,n);
 	showcard(card,n);
-	value2+=getcard(card,d);
-	value2+=getcard(card,e);
-	card1=2;                                  //get card for player
+	card[n]=-1;           //get card for player make sure the card is unique
+	
+	card1=2; 
+	                                
 	
 	cout<<"do you want another card?"<<endl;
 	cin>>choice;
 	
-	if (choice=='y'){
+	while (choice=='y'){
 		do {
 			c=rand()*52/(RAND_MAX+1);
-		}while(c==m||c==n||c==d||c==e);
+		}while(card[c]==-1);
 		value1+=getcard(card,c);
 		showcard(card,c);
+		card[c]=-1;
 		card1++;
 		if (value1>21){
 			cout<<"player lose"<<endl;
+			choice='n'; 
 	}
 		else{
 			cout<<"do you want another card?"<<endl;
@@ -57,20 +63,24 @@ int main(){
 	
 	do{
 		d=rand()*52/(RAND_MAX+1);
-	}while (d==n||d==m);
+	}while (card[d]==-1);
+	value2+=getcard(card,d);
+	card[d]=-1;
+	
 	do{
 		e=rand()*52/(RAND_MAX+1);
-	}while (e==n||e==m||e==d);
-	
-	value2+=getcard(card,d);
+	}while (card[e]==-1);
 	value2+=getcard(card,e);
-	card2=2;												//get card for player
+	card[e]=-1;                           //get card for player
 	
-	while(value2<value1){
+	card2=2;												
+	
+	while(value2+0.5<value1){
 		do {
 			f=rand()*52/(RAND_MAX+1);
-		}while(f==m||f==n||f==d||f==e||f==c);
+		}while(card[f]==-1);
 		value2+=getcard(card,f);
+		card[f]=-1;
 		card2++;                                            //judage another card or not?
 	}
 	
@@ -79,7 +89,8 @@ int main(){
 	cout<<"do you want play again?"<<endl;
 	cin>>choice;
 	
-	}
+	
+	}while(choice=='y');
 	return 0;
 } 
 
@@ -93,22 +104,22 @@ void showcard(int array[ ],int choose)
         	case 0: cout << "heart ";break;
         	case 1: cout << "diamonds ";break;
         	case 2: cout << "spade ";break;
-        	case 3: cout << "club ";}
+        	case 3: cout << "club ";}        //show card color
 		
 		switch(cardnumber){
-			case 1:cout<<"1";break;
-			case 2:cout<<"2";break;
-			case 3:cout<<"3";break;
-			case 4:cout<<"4";break;
-			case 5:cout<<"5";break;
-			case 6:cout<<"6";break;
-			case 7:cout<<"7";break;
-			case 8:cout<<"8";break;
-			case 9:cout<<"9";break;
-			case 10:cout<<"10";break;
-			case 11:cout<<"J";break;
-			case 12:cout<<"Q";break;
-			case 13:cout<<"K";
+			case 1:cout<<"A"<<endl;break;
+			case 2:cout<<"2"<<endl;break;
+			case 3:cout<<"3"<<endl;break;
+			case 4:cout<<"4"<<endl;break;
+			case 5:cout<<"5"<<endl;break;
+			case 6:cout<<"6"<<endl;break;
+			case 7:cout<<"7"<<endl;break;
+			case 8:cout<<"8"<<endl;break;
+			case 9:cout<<"9"<<endl;break;
+			case 10:cout<<"10"<<endl;break;
+			case 11:cout<<"J"<<endl;break;
+			case 12:cout<<"Q"<<endl;break;
+			case 13:cout<<"K"<<endl;         //show card number
 } 
 }
 
