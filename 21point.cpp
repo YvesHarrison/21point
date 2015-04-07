@@ -36,7 +36,7 @@ int main(){
 	card[n]=-1;           //get card for player make sure the card is unique
 	
 	card1=2; 
-	                                
+	decide='y';                                
 	
 	cout<<"do you want another card?"<<endl;
 	cin>>choice;
@@ -52,43 +52,51 @@ int main(){
 		if (value1>21){
 			cout<<"player lose"<<endl;
 			choice='n'; 
+			decide='n';
 	}
 		else{
 			cout<<"do you want another card?"<<endl;
 			cin>>choice;
 		}
 	}
-	
+	if (decide=='y'){ 
 	cout<<"computer turn"<<endl;
 	
 	do{
 		d=rand()*52/(RAND_MAX+1);
 	}while (card[d]==-1);
 	value2+=getcard(card,d);
+	showcard(card,d);
 	card[d]=-1;
 	
 	do{
 		e=rand()*52/(RAND_MAX+1);
 	}while (card[e]==-1);
 	value2+=getcard(card,e);
+	showcard(card,e);
 	card[e]=-1;                           //get card for player
 	
 	card2=2;												
 	
-	while(value2+0.5<value1){
+	while(value2<value1){
 		do {
 			f=rand()*52/(RAND_MAX+1);
 		}while(card[f]==-1);
 		value2+=getcard(card,f);
+		showcard(card,f);
 		card[f]=-1;
 		card2++;                                            //judage another card or not?
 	}
+	if (value2>21){
+		cout<<"palyer win"<<endl;
+		decide='n';} }
 	
-	judage(value1,value2,card1,card2);
+	if (decide=='y'){
+		judage(value1,value2,card1,card2);
+	}
 	
 	cout<<"do you want play again?"<<endl;
 	cin>>choice;
-	
 	
 	}while(choice=='y');
 	return 0;
